@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block titulo %} <title>minha lista de milkshake</title> {% endblock %}
+{% block content %}  
+<div>
+<body class="container-fluid vh-100 d-flex d-flex align-items-center d-flex flex-column bd-highlight mb-3">
+    <h1 class="display-6">MilkShakes</h1>
+    <table class="table table-light table-hover table-striped table-bordered">
+        <thead class="text-center">
+            <tr class="table-light">
+    <!-- <table> -->
+    <!-- <thead> -->
+        <!-- <tr> Faltava a tag tr aqui nas colunas do topo -->
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sabor</th>
+            <th>Cobertura</th>
+            <th>Confeitos</th>
+            <th>Tamanho</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for shake in milkshakes %}
+        <tr>
+            <td>{{ shake.uid }}</td>
+            <td>{{ shake.nome }}</td>
+            <td>{{ shake.sabor }}</td>
+            <td>{{ shake.cobertura }}</td>
+            <td>{{ shake.confeitos }}</td>
+            <td>{{ shake.tamanho }}</td>
+            <td>R$ {{ shake.preco }}</td>
+            <td>
+                <!-- O method="POST" agora bate perfeitamente com a rota Flask -->
+                <form action="{{ url_for('delete_leite', uid=shake.uid) }}" method="POST"
+                    style="display:inline;"
+                    onsubmit="return confirm('Tem certeza que deseja excluir este milkshake?');">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %} <!-- O fim do loop deve ficar DEPOIS da linha <tr> -->
+    </tbody>
+</table>
+</div>
+{% endblock %}
